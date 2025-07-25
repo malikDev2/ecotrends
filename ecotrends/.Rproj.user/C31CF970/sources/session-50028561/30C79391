@@ -3,9 +3,9 @@
     "path": "C:/Users/jacob/OneDrive/Desktop/code/rtrends/ecotrends/analysis.Rmd",
     "project_path": "analysis.Rmd",
     "type": "r_markdown",
-    "hash": "0",
+    "hash": "431574167",
     "contents": "",
-    "dirty": true,
+    "dirty": false,
     "created": 1753313827629.0,
     "source_on_save": false,
     "relative_order": 1,
@@ -18,11 +18,11 @@
         "last_setup_crc32": "50028561bb338d19"
     },
     "folds": "",
-    "lastKnownWriteTime": 1753315752,
+    "lastKnownWriteTime": 1753473077,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1753472828327,
+    "last_content_update": 1753473077610,
     "read_only": false,
     "read_only_alternatives": []
 }
