@@ -38,3 +38,36 @@ library(ggplot2)
 
 con <- dbConnect(SQLite(), "econ_data.db")
 ```
+
+```{r import tables}
+gdpgrowth_df <- read.csv("datafiles/gdpgrowth.csv", skip = 4)
+dbWriteTable(con, "gdp growth", gdpgrowth_df, overwrite = TRUE)
+
+gdpgrowthrate_df <- read.csv("datafiles/gdpgrowthrate.csv", skip = 4)
+dbWriteTable(con, "gdp growth rate", gdpgrowthrate_df, overwrite = TRUE)
+
+gdppercapita_df <- read.csv("datafiles/gdppercapita.csv", skip = 4)
+dbWriteTable(con, "gdp per capita", gdppercapita_df, overwrite = TRUE)
+
+homeprices_df <- read.csv("datafiles/homeprices.csv")
+dbWriteTable(con, "home prices", homeprices_df, overwrite = TRUE)
+
+inflationrate_df <- read.csv("datafiles/inflarate.csv")
+dbWriteTable(con, "inflation rate", inflationrate_df, overwrite = TRUE)
+
+inflation_df <- read.csv("datafiles/inflation.csv")
+dbWriteTable(con, "inflation", inflation_df, overwrite = TRUE)
+
+unemployedpopulation_df <- read_excel("datafiles/unemppop.xlsx", sheet = 1)
+dbWriteTable(con, "unemployed", unemployedpopulation_df, overwrite = TRUE)
+
+unemploymentrate_df <- read_excel("datafiles/uneprate.xlsx", sheet = 1)
+dbWriteTable(con, "unemployment rate", unemploymentrate_df, overwrite = TRUE)
+
+workingpopulation_df <- read_excel("datafiles/workpop.xlsx", sheet = 1)
+dbWriteTable(con, "working population", workingpopulation_df, overwrite = TRUE)
+
+
+
+
+```
