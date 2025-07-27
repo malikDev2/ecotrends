@@ -71,3 +71,30 @@ dbWriteTable(con, "working population", workingpopulation_df, overwrite = TRUE)
 
 
 ```
+
+```{r list-tables}
+dbListTables(con)
+
+```
+
+```{r list-fields}
+
+dbListFields(con, "gdp growth")
+dbListFields(con, "gdp per capita")
+dbListFields(con, "gdp growth rate")
+dbListFields(con, "home prices")
+dbListFields(con, "inflation")
+dbListFields(con, "inflation rate")
+dbListFields(con, "unemployed")
+dbListFields(con, "unemployment rate")
+dbListFields(con, "working population")
+
+
+```
+```{r peek-data}
+
+dbGetQuery(con, "SELECT * from \"gdp growth\" LIMIT 10")
+dbGetQuery(con, "SELECT * from \"gdp per capita\" LIMIT 10")
+dbGetQuery(con, "SELECT * from \"gdp growth rate\" LIMIT 10")
+
+```
