@@ -1,2 +1,0 @@
-"0",""
-"0","dbGetQuery(con, ""SELECT * from \""gdp growth\"" WHERE \""Country.Name\"" = 'United States'"")"

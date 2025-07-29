@@ -1,0 +1,4 @@
+"0","# top 1% = 20.73%, top 10% = 46.76%, bottom 50% = 13.44%"
+"0","dbGetQuery(con, ""SELECT * from wealth WHERE Share = "
+"0","(SELECT MIN(Share) FROM wealth)"
+"0","AND Percentile == 'p99p100'"")"

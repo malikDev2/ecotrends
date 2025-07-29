@@ -67,6 +67,8 @@ dbWriteTable(con, "unemployment rate", unemploymentrate_df, overwrite = TRUE)
 workingpopulation_df <- read_excel("datafiles/workpop.xlsx", sheet = 1)
 dbWriteTable(con, "working population", workingpopulation_df, overwrite = TRUE)
 
+wealth_df <- read.csv("datafiles/wealthineq.csv")
+dbWriteTable(con, "wealth", wealth_df, overwrite = TRUE)
 
 
 
@@ -88,6 +90,7 @@ dbListFields(con, "inflation rate")
 dbListFields(con, "unemployed")
 dbListFields(con, "unemployment rate")
 dbListFields(con, "working population")
+dbListFields(con, "wealth")
 
 
 ```
@@ -103,5 +106,60 @@ dbGetQuery(con, "SELECT * from \"gdp growth rate\" LIMIT 10")
 dbGetQuery(con, "SELECT * from \"gdp growth\" WHERE \"Country.Name\" = 'United States'")
 dbGetQuery(con, "SELECT * from \"gdp per capita\" WHERE \"Country.Name\" = 'United States'")
 dbGetQuery(con, "SELECT * from \"gdp growth rate\" WHERE \"Country.Name\" = 'United States'")
+
+```
+
+```{r query-wealth-inequality data}
+
+dbGetQuery(con, "SELECT * from wealth WHERE Year == 1962")
+# top 1% = 12.8%, top 10% = 36.2%, bottom 50% = 19.3% 
+dbGetQuery(con, "SELECT * from wealth WHERE Year == 2023")
+# top 1% = 20.73%, top 10% = 46.76%, bottom 50% = 13.44%
+dbGetQuery(con, "SELECT * from wealth WHERE Share = 
+(SELECT MIN(Share) FROM wealth)
+AND Percentile == 'p99p100'")
+# Min top 1% = 10.3% in 1978
+dbGetQuery(con, "
+  SELECT * 
+  FROM wealth 
+  WHERE Percentile = 'p99p100'
+  AND Share = (SELECT MAX(Share) FROM wealth WHERE Percentile = 'p99p100')
+")
+# Max top 1% = 20.7% in 2022-2023
+dbGetQuery(con, "
+  SELECT * 
+  FROM wealth 
+  WHERE Percentile = 'p90p100'
+  AND Share = (SELECT MIN(Share) FROM wealth WHERE Percentile = 'p90p100')
+")
+# Min top 10% = 33.6% in 1970
+dbGetQuery(con, "
+  SELECT * 
+  FROM wealth 
+  WHERE Percentile = 'p90p100'
+  AND Share = (SELECT MAX(Share) FROM wealth WHERE Percentile = 'p90p100')
+")
+# Max top 10% = 46.9% in 2022
+dbGetQuery(con, "
+  SELECT * 
+  FROM wealth 
+  WHERE Percentile = 'p0p50'
+  AND Share = (SELECT MIN(Share) FROM wealth WHERE Percentile = 'p0p50')
+")
+# Min Bottom 50% = 12.95% in 2016
+dbGetQuery(con, "
+  SELECT * 
+  FROM wealth 
+  WHERE Percentile = 'p0p50'
+  AND Share = (SELECT MAX(Share) FROM wealth WHERE Percentile = 'p0p50')
+")
+# Max Bottom 50% = 21.24% in 2016
+
+
+
+
+
+
+
 
 ```

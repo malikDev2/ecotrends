@@ -1,0 +1,2 @@
+"0",""
+"0","dbGetQuery(con, ""SELECT * from wealth WHERE Year == 1962"")"

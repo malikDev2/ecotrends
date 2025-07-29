@@ -25,6 +25,8 @@
 "0","workingpopulation_df <- read_excel(""datafiles/workpop.xlsx"", sheet = 1)"
 "0","dbWriteTable(con, ""working population"", workingpopulation_df, overwrite = TRUE)"
 "0",""
+"0","wealth_df <- read.csv(""datafiles/wealthineq.csv"")"
+"0","dbWriteTable(con, ""wealth"", wealth_df, overwrite = TRUE)"
 "0",""
 "0",""
 "0",""
