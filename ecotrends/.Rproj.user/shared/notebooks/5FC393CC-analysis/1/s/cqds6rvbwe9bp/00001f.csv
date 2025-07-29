@@ -1,0 +1,1 @@
+"0","dbGetQuery(con, ""SELECT * from \""gdp per capita\"" WHERE \""Country.Name\"" = 'United States'"")"

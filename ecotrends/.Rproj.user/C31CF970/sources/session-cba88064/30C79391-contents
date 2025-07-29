@@ -98,3 +98,10 @@ dbGetQuery(con, "SELECT * from \"gdp per capita\" LIMIT 10")
 dbGetQuery(con, "SELECT * from \"gdp growth rate\" LIMIT 10")
 
 ```
+```{r retrieve-american-data}
+
+dbGetQuery(con, "SELECT * from \"gdp growth\" WHERE \"Country.Name\" = 'United States'")
+dbGetQuery(con, "SELECT * from \"gdp per capita\" WHERE \"Country.Name\" = 'United States'")
+dbGetQuery(con, "SELECT * from \"gdp growth rate\" WHERE \"Country.Name\" = 'United States'")
+
+```
