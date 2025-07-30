@@ -1,2 +1,0 @@
-"0","# top 1% = 12.8%, top 10% = 36.2%, bottom 50% = 19.3% "
-"0","dbGetQuery(con, ""SELECT * from wealth WHERE Year == 2023"")"

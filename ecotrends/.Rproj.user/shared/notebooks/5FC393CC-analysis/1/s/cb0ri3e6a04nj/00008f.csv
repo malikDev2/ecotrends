@@ -1,7 +1,0 @@
-"0",""
-"0","dbGetQuery(con, """
-"0","  SELECT * "
-"0","  FROM wealth "
-"0","  WHERE Percentile = 'p0p50'"
-"0","  AND Share = (SELECT MIN(Share) FROM wealth WHERE Percentile = 'p0p50')"
-"0",""")"

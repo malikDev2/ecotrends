@@ -1,7 +1,0 @@
-"0","# Min top 10% = 33.6% in 1970"
-"0","dbGetQuery(con, """
-"0","  SELECT * "
-"0","  FROM wealth "
-"0","  WHERE Percentile = 'p90p100'"
-"0","  AND Share = (SELECT MAX(Share) FROM wealth WHERE Percentile = 'p90p100')"
-"0",""")"

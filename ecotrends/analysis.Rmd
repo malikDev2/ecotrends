@@ -154,11 +154,41 @@ dbGetQuery(con, "
   AND Share = (SELECT MAX(Share) FROM wealth WHERE Percentile = 'p0p50')
 ")
 # Max Bottom 50% = 21.24% in 2016
+```
 
+```{r create-new-dataframes}
 
+topone_df <- dbGetQuery(con, "
+  SELECT * 
+  FROM wealth 
+  WHERE Percentile = 'p99p100'")
 
+topten_df <- dbGetQuery(con, "
+  SELECT * 
+  FROM wealth 
+  WHERE Percentile = 'p90p100'")
 
+bothalf_df <- dbGetQuery(con, "
+  SELECT * 
+  FROM wealth 
+  WHERE Percentile = 'p50p0'")
 
+amergdpgrowth_df <- dbGetQuery(con, "
+  SELECT * 
+  FROM \"gdp growth\"
+  WHERE `Country.Name` = 'United States'")
+
+amergdpgrowthrate_df <- dbGetQuery(con, "
+  SELECT * 
+  FROM \"gdp growth rate\"
+  WHERE `Country.Name` = 'United States'")
+
+amergdppercap_df <- dbGetQuery(con, "
+  SELECT * 
+  FROM \"gdp per capita\"
+  WHERE `Country.Name` = 'United States'")
+
+ 
 
 
 
