@@ -171,7 +171,7 @@ topten_df <- dbGetQuery(con, "
 bothalf_df <- dbGetQuery(con, "
   SELECT * 
   FROM wealth 
-  WHERE Percentile = 'p50p0'")
+  WHERE Percentile = 'p0p50'")
 
 amergdpgrowth_df <- dbGetQuery(con, "
   SELECT * 
@@ -188,8 +188,46 @@ amergdppercap_df <- dbGetQuery(con, "
   FROM \"gdp per capita\"
   WHERE `Country.Name` = 'United States'")
 
- 
+```
+
+```{r package-install}
+install.packages("tidyr")
+
+```
+
+```{r visualize-data}
+
+library(dplyr)
+library(tidyr)
+library(ggplot2)
 
 
+ggplot(topone_df, aes(x = Year, y = Share)) +
+  geom_line(color = "darkgreen", size = 1) +
+  geom_point(size = 1) +
+  labs(title = "(Wealth Share of Top One)",
+       x = "Year", y = "Percent") +
+  theme_minimal()
+
+ggplot(topten_df, aes(x = Year, y = Share)) +
+  geom_line(color = "darkgreen", size = 1) +
+  geom_point(size = 1) +
+  labs(title = "(Wealth Share of Top Ten)",
+       x = "Year", y = "Percent") +
+  theme_minimal()
+
+ggplot(bothalf_df, aes(x = Year, y = Share)) +
+  geom_line(color = "darkgreen", size = 1) +
+  geom_point(size = 1) +
+  labs(title = "(Wealth Share of Bottom Half )",
+       x = "Year", y = "Percent") +
+  theme_minimal()
+
+ggplot(inflationrate_df, aes(x = observation_date, y = FPCPITOTLZGUSA)) +
+  geom_line(color = "darkgreen", size = 1) +
+  geom_point(size = 1) +
+  labs(title = "(Wealth Share of Bottom Half )",
+       x = "Year", y = "Percent") +
+  theme_minimal()
 
 ```

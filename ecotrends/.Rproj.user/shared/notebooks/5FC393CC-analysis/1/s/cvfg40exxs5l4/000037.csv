@@ -1,0 +1,8 @@
+"0",""
+"0","ggplot(inflationrate_df, aes(x = observation_date, y = FPCPITOTLZGUSA)) +"
+"0","  geom_line(color = ""darkgreen"", size = 1) +"
+"0","  geom_point(size = 1) +"
+"0","  labs(title = ""(Wealth Share of Bottom Half )"","
+"0","       x = ""Year"", y = ""Percent"") +"
+"0","  theme_minimal()"
+"0",""
