@@ -1,0 +1,7 @@
+"0",""
+"0","ggplot(topten_df, aes(x = Year, y = Share)) +"
+"0","  geom_line(color = ""#006aff"", size = 1) +"
+"0","  geom_point(size = 1) +"
+"0","  labs(title = ""(Wealth Share of Top Ten)"","
+"0","       x = ""Year"", y = ""Percent"") +"
+"0","  theme_minimal()"

@@ -203,45 +203,44 @@ library(ggplot2)
 
 
 ggplot(topone_df, aes(x = Year, y = Share)) +
-  geom_line(color = "darkgreen", size = 1) +
+  geom_line(color = "#1eff00", size = 1) +
   geom_point(size = 1) +
   labs(title = "(Wealth Share of Top One)",
        x = "Year", y = "Percent") +
   theme_minimal()
 
 ggplot(topten_df, aes(x = Year, y = Share)) +
-  geom_line(color = "darkgreen", size = 1) +
+  geom_line(color = "#006aff", size = 1) +
   geom_point(size = 1) +
   labs(title = "(Wealth Share of Top Ten)",
        x = "Year", y = "Percent") +
   theme_minimal()
 
 ggplot(bothalf_df, aes(x = Year, y = Share)) +
-  geom_line(color = "darkgreen", size = 1) +
+  geom_line(color = "#ff0000", size = 1) +
   geom_point(size = 1) +
   labs(title = "(Wealth Share of Bottom Half )",
        x = "Year", y = "Percent") +
   theme_minimal()
 
-ggplot(inflationrate_df, aes(x = observation_date, y = FPCPITOTLZGUSA)) +
-  geom_line(color = "darkgreen", size = 1) +
+inflationrate_df$observation_date <- as.integer(inflationrate_df$observation_date)
+
+ggplot(inflationrate_df, aes(x = observation_date, y = FPCPITOTLZGUSA, group=1)) +
+  geom_line(color = "#ffee00", size = 1) +
+  scale_x_continuous(breaks = seq(1960, 2025, by = 10)) +
   geom_point(size = 1) +
-  labs(title = "(Wealth Share of Bottom Half )",
+  labs(title = "( American Inflation Rate )",
        x = "Year", y = "Percent") +
   theme_minimal()
 
 ```
 
 ```{r modify-columns}
-
-inflation_df <- inflation_df%>%
-  mutate(observation_date = substr(observation_date, 1, nchar(observation_date) - 3))
-
 inflationrate_df <- inflationrate_df%>%
   mutate(observation_date = substr(observation_date, 1, nchar(observation_date) - 6))
 ```
 
-```{r}
+```{r creating-dataframes}
 workpop_df <- workingpopulation_df %>%
   slice(11:n())
 
@@ -250,6 +249,42 @@ unempop_df <- unemployedpopulation_df %>%
 
 unemrate_df <- unemploymentrate_df %>%
   slice(11:n())
+
+```
+
+```{r visualize-more-data}
+
+library(lubridate)
+library(ggplot2)
+library(dplyr)
+
+if (is.factor(inflation_df$observation_date)) {
+  inflation_df$observation_date <- as.character(inflation_df$observation_date)
+}
+inflation_df$observation_date <- as.Date(paste0(inflation_df$observation_date, "-01"), format = "%Y-%m-%d")
+
+ggplot(inflation_df, aes(x = observation_date, y = CPILFESL)) +
+  geom_line(color = "#006aff", size = 1) +
+  geom_point(size = 1) +
+  scale_x_date(breaks = seq(from = as.Date("1957-01-01"),
+                            to = as.Date("2025-06-01"),
+                            by = "5 years"),
+               date_labels = "%Y") +
+  labs(title = "( Overtime Price Increase)",
+       x = "Year", y = "Percent") +
+  theme_minimal()
+
+unemrate_df$...2 <- as.numeric(unemrate_df$...2)
+unemrate_df$`Labor Force Statistics from the Current Population Survey` <- as.numeric(unemrate_df$`Labor Force Statistics from the Current Population Survey`)
+
+ggplot(filter(unemrate_df, row_number() != 1), aes(x = `Labor Force Statistics from the Current Population Survey` , y = ...2)) +
+  geom_line(color = "#ff0000", size = 1) +
+  scale_x_continuous(breaks = seq(1948, 2025, by = 10)) +
+  scale_y_continuous(breaks = seq(0, 12, by = 1)) +
+  geom_point(size = 1) +
+  labs(title = "( Unemployment Rate )",
+       x = "Year", y = "Percent") +
+  theme_minimal()
 
 
 
