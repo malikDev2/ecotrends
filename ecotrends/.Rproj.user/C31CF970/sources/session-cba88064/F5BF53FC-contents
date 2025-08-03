@@ -300,9 +300,88 @@ ggplot(filter(unempop_df, row_number() != 1), aes(x = `Labor Force Statistics fr
        x = "Year", y = "Percent") +
   theme_minimal()
 
+```
 
+```{r import-wages}
+avgwage_df <- read.csv("datafiles/avgwage.csv")
 
+ggplot(avgwage_df, aes(x = Year, y = Index, group=1)) +
+  geom_line(color = "#ffee00", size = 1) +
+  geom_point(size = 1) +
+  labs(title = "( Average Wage )",
+       x = "Year", y = "$") +
+  theme_minimal()
 
+```
 
+```{r resize-one-row-dataframes}
+
+library(tidyr)
+library(dplyr)
+
+amergdpgrowth_df <- amergdpgrowth_df %>%
+  pivot_longer(
+    cols = starts_with("X"),
+    names_to = "Year",
+    values_to = "GDP"
+  ) %>%
+  mutate(Year = as.numeric(sub("X", "", Year)))
+amergdpgrowthrate_df <- amergdpgrowthrate_df %>%
+  pivot_longer(
+    cols = starts_with("X"),
+    names_to = "Year",
+    values_to = "GDP"
+  ) %>%
+  mutate(Year = as.numeric(sub("X", "", Year)))
+
+amergdppercap_df <- amergdppercap_df %>%
+  pivot_longer(
+    cols = starts_with("X"),
+    names_to = "Year",
+    values_to = "GDP"
+  ) %>%
+  mutate(Year = as.numeric(sub("X", "", Year)))
+
+home_df <- home_df %>%
+  pivot_longer(
+    cols = starts_with("X"),
+    names_to = "Year",
+    values_to = "Price"
+  ) %>%
+  mutate(Year = sub("X", "", Year))
+
+home_df$Year <- as.Date(home_df$Year, format = "%Y.%m.%d")
+  
+```
+
+```{r current}
+
+ggplot(home_df, aes(x = Year, y = Price)) +
+  geom_line(color = "#006aff", size = 1) +
+  geom_point(size = 1) +
+  labs(title = "(Home Prices)",
+       x = "Year", y = "Price") +
+  theme_minimal()
+
+ggplot(amergdpgrowth_df, aes(x = Year, y = GDP)) +
+  geom_line(color = "#9d32a8", size = 1) +
+  geom_point(size = 1) +
+  labs(title = "( American GDP )",
+       x = "Year", y = "GDP $") +
+  theme_minimal()
+
+ggplot(amergdpgrowthrate_df, aes(x = Year, y = GDP)) +
+  geom_line(color = "#32a84a", size = 1) +
+  geom_point(size = 1) +
+  labs(title = "( American GDP Growth Rate )",
+       x = "Year", y = "Percentage %") +
+  theme_minimal()
+
+ggplot(amergdppercap_df, aes(x = Year, y = GDP)) +
+  geom_line(color = "#3263a8", size = 1) +
+  geom_point(size = 1) +
+  labs(title = "( American GDP Per Capita )",
+       x = "Year", y = "Amount $") +
+  theme_minimal()
 
 ```

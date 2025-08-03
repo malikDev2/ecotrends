@@ -1,0 +1,7 @@
+"0",""
+"0","ggplot(amergdpgrowth_df, aes(x = Year, y = GDP)) +"
+"0","  geom_line(color = ""#9d32a8"", size = 1) +"
+"0","  geom_point(size = 1) +"
+"0","  labs(title = ""( American GDP )"","
+"0","       x = ""Year"", y = ""GDP $"") +"
+"0","  theme_minimal()"

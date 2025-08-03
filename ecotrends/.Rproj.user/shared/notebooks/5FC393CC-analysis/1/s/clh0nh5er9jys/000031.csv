@@ -1,0 +1,7 @@
+"0",""
+"0","ggplot(home_df, aes(x = Year, y = Price)) +"
+"0","  geom_line(color = ""#006aff"", size = 1) +"
+"0","  geom_point(size = 1) +"
+"0","  labs(title = ""(Home Prices)"","
+"0","       x = ""Year"", y = ""Price"") +"
+"0","  theme_minimal()"
