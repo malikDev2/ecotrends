@@ -29,3 +29,5 @@
 "0","  FROM \""gdp per capita\"""
 "0","  WHERE `Country.Name` = 'United States'"")"
 "0",""
+"0","home_df <- dbGetQuery(con, ""SELECT * FROM \""home prices\"" WHERE RegionName = 'United States'"")"
+"0",""

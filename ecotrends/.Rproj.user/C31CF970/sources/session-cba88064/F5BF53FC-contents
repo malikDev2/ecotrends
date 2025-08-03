@@ -188,6 +188,8 @@ amergdppercap_df <- dbGetQuery(con, "
   FROM \"gdp per capita\"
   WHERE `Country.Name` = 'United States'")
 
+home_df <- dbGetQuery(con, "SELECT * FROM \"home prices\" WHERE RegionName = 'United States'")
+
 ```
 
 ```{r package-install}
@@ -277,12 +279,24 @@ ggplot(inflation_df, aes(x = observation_date, y = CPILFESL)) +
 unemrate_df$...2 <- as.numeric(unemrate_df$...2)
 unemrate_df$`Labor Force Statistics from the Current Population Survey` <- as.numeric(unemrate_df$`Labor Force Statistics from the Current Population Survey`)
 
+unempop_df$...2 <- as.numeric(unempop_df$...2)
+unempop_df$`Labor Force Statistics from the Current Population Survey` <- as.numeric(unempop_df$`Labor Force Statistics from the Current Population Survey`)
+
 ggplot(filter(unemrate_df, row_number() != 1), aes(x = `Labor Force Statistics from the Current Population Survey` , y = ...2)) +
   geom_line(color = "#ff0000", size = 1) +
   scale_x_continuous(breaks = seq(1948, 2025, by = 10)) +
   scale_y_continuous(breaks = seq(0, 12, by = 1)) +
   geom_point(size = 1) +
   labs(title = "( Unemployment Rate )",
+       x = "Year", y = "Percent") +
+  theme_minimal()
+
+ggplot(filter(unempop_df, row_number() != 1), aes(x = `Labor Force Statistics from the Current Population Survey` , y = ...2)) +
+  geom_line(color = "#ff0000", size = 1) +
+  scale_x_continuous(breaks = seq(1948, 2025, by = 10)) +
+  scale_y_continuous(breaks = seq(0, 20000, by = 3000)) +
+  geom_point(size = 1) +
+  labs(title = "( Unemployment Amount )",
        x = "Year", y = "Percent") +
   theme_minimal()
 

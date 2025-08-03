@@ -1,0 +1,5 @@
+"0",""
+"0","dbGetQuery(con, ""SELECT * from wealth WHERE Year == 1962"")"
+"2","Error in dbGetQuery(con, ""SELECT * from wealth WHERE Year == 1962"") : 
+  could not find function ""dbGetQuery""
+"
