@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import Home from "./assets/home.tsx";
-import Eco from "./assets/economy.tsx";
-import Afford from './assets/affordability.tsx';
-import Ineq from './assets/inequality.tsx';
+import Home from "./pages/home.tsx";
+import Eco from "./pages/economy.tsx";
+import Afford from './pages/affordability.tsx';
+import Ineq from './pages/inequality.tsx';
 import './App.css'
 
 import { HashRouter, Routes, Route } from "react-router-dom";

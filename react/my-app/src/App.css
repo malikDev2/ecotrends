@@ -1,0 +1,32 @@
+.home{
+    border: 2px solid black;
+    width: 150px;
+    height: 150px;
+    justify-content: center;
+    display: flex;
+    border-radius: 20px;
+    transition: 1s;
+    text-decoration: none;
+    
+}
+
+.home h2{
+    color: black;
+}
+
+
+h1{
+    justify-self: center;
+}
+
+.home:hover{
+    padding: 5px;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+.homedivs{
+    gap: 10px;
+    display: flex;
+    justify-content: center;
+}
