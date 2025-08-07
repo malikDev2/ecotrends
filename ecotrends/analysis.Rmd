@@ -193,8 +193,8 @@ home_df <- dbGetQuery(con, "SELECT * FROM \"home prices\" WHERE RegionName = 'Un
 ```
 
 ```{r package-install}
-install.packages("tidyr")
-
+inflationrate_df <- read.csv("datafiles/inflarate.csv")
+inflationrate_df$observation_date <- as.integer(inflationrate_df$observation_date)
 ```
 
 ```{r visualize-wealthgap-data}
@@ -204,36 +204,36 @@ library(tidyr)
 library(ggplot2)
 
 
-ggplot(topone_df, aes(x = Year, y = Share)) +
+ggplot(topone_df, aes(x = Year, y = Share * 100)) +
   geom_line(color = "#1eff00", size = 1) +
   geom_point(size = 1) +
-  labs(title = "(Wealth Share of Top One)",
-       x = "Year", y = "Percent") +
-  theme_minimal()
+  labs(title = "(Wealth Share of Wealthiest 1% of Americans)",
+       x = "Year", y = "Percent (%)") +
+  theme_bw()
 
-ggplot(topten_df, aes(x = Year, y = Share)) +
+ggplot(topten_df, aes(x = Year, y = Share * 100)) +
   geom_line(color = "#006aff", size = 1) +
   geom_point(size = 1) +
-  labs(title = "(Wealth Share of Top Ten)",
-       x = "Year", y = "Percent") +
-  theme_minimal()
+  labs(title = "(Wealth Share of Wealthiest 10% of Americans)",
+       x = "Year", y = "Percent (%)") +
+  theme_bw()
 
-ggplot(bothalf_df, aes(x = Year, y = Share)) +
+ggplot(bothalf_df, aes(x = Year, y = Share * 100)) +
   geom_line(color = "#ff0000", size = 1) +
   geom_point(size = 1) +
-  labs(title = "(Wealth Share of Bottom Half )",
-       x = "Year", y = "Percent") +
-  theme_minimal()
+  labs(title = "(Wealth Share of Bottom 50% of Americans )",
+       x = "Year", y = "Percent (%)") +
+  theme_bw()
 
-inflationrate_df$observation_date <- as.integer(inflationrate_df$observation_date)
+
 
 ggplot(inflationrate_df, aes(x = observation_date, y = FPCPITOTLZGUSA, group=1)) +
   geom_line(color = "#ffee00", size = 1) +
   scale_x_continuous(breaks = seq(1960, 2025, by = 10)) +
   geom_point(size = 1) +
   labs(title = "( American Inflation Rate )",
-       x = "Year", y = "Percent") +
-  theme_minimal()
+       x = "Year", y = "Percent (%)") +
+  theme_bw()
 
 ```
 
@@ -254,27 +254,12 @@ unemrate_df <- unemploymentrate_df %>%
 
 ```
 
-```{r visualize-more-data}
-
-library(lubridate)
-library(ggplot2)
-library(dplyr)
+```{r transforming-data}
 
 if (is.factor(inflation_df$observation_date)) {
   inflation_df$observation_date <- as.character(inflation_df$observation_date)
 }
 inflation_df$observation_date <- as.Date(paste0(inflation_df$observation_date, "-01"), format = "%Y-%m-%d")
-
-ggplot(inflation_df, aes(x = observation_date, y = CPILFESL)) +
-  geom_line(color = "#006aff", size = 1) +
-  geom_point(size = 1) +
-  scale_x_date(breaks = seq(from = as.Date("1957-01-01"),
-                            to = as.Date("2025-06-01"),
-                            by = "5 years"),
-               date_labels = "%Y") +
-  labs(title = "( Overtime Price Increase)",
-       x = "Year", y = "Percent") +
-  theme_minimal()
 
 unemrate_df$...2 <- as.numeric(unemrate_df$...2)
 unemrate_df$`Labor Force Statistics from the Current Population Survey` <- as.numeric(unemrate_df$`Labor Force Statistics from the Current Population Survey`)
@@ -282,23 +267,58 @@ unemrate_df$`Labor Force Statistics from the Current Population Survey` <- as.nu
 unempop_df$...2 <- as.numeric(unempop_df$...2)
 unempop_df$`Labor Force Statistics from the Current Population Survey` <- as.numeric(unempop_df$`Labor Force Statistics from the Current Population Survey`)
 
+workpop_df$...2 <- as.numeric(workpop_df$...2)
+workpop_df$`Labor Force Statistics from the Current Population Survey` <- as.numeric(workpop_df$`Labor Force Statistics from the Current Population Survey`)
+
+
+
+```
+
+```{r visualize-more-data}
+
+library(lubridate)
+library(ggplot2)
+library(dplyr)
+
+
+ggplot(inflation_df, aes(x = observation_date, y = CPILFESL)) +
+  geom_line(color = "#006aff", size = 2) +
+  geom_point(size = 0.5) +
+  scale_x_date(breaks = seq(from = as.Date("1957-01-01"),
+                            to = as.Date("2025-06-01"),
+                            by = "5 years"),
+               date_labels = "%Y") +
+  labs(title = "Overtime American Price Increase ($28.50 in 1957)",
+       x = "Year", y = "Price ($)") +
+  theme_bw()
+
 ggplot(filter(unemrate_df, row_number() != 1), aes(x = `Labor Force Statistics from the Current Population Survey` , y = ...2)) +
-  geom_line(color = "#ff0000", size = 1) +
+  geom_line(color = "#ff2b36", size = 1) +
   scale_x_continuous(breaks = seq(1948, 2025, by = 10)) +
   scale_y_continuous(breaks = seq(0, 12, by = 1)) +
   geom_point(size = 1) +
-  labs(title = "( Unemployment Rate )",
-       x = "Year", y = "Percent") +
-  theme_minimal()
+  labs(title = "( American Unemployment Rate )",
+       x = "Year", y = "Percent (%)") +
+  theme_bw()
 
 ggplot(filter(unempop_df, row_number() != 1), aes(x = `Labor Force Statistics from the Current Population Survey` , y = ...2)) +
-  geom_line(color = "#ff0000", size = 1) +
+  geom_line(color = "#ba040d", size = 1) +
   scale_x_continuous(breaks = seq(1948, 2025, by = 10)) +
   scale_y_continuous(breaks = seq(0, 20000, by = 3000)) +
   geom_point(size = 1) +
-  labs(title = "( Unemployment Amount )",
-       x = "Year", y = "Percent") +
-  theme_minimal()
+  labs(title = "( American Unemployed Population )",
+       x = "Year", y = "Amount") +
+  theme_bw()
+
+
+
+ggplot(filter(workpop_df, row_number() != 1), aes(x = `Labor Force Statistics from the Current Population Survey` , y = ...2)) +
+  geom_line(color = "#05f278", size = 1) +
+  scale_x_continuous(breaks = seq(1948, 2025, by = 10)) +
+  geom_point(size = 1) +
+  labs(title = "( American Workforce Population )",
+       x = "Year", y = "Amount") +
+  theme_bw()
 
 ```
 
@@ -306,11 +326,11 @@ ggplot(filter(unempop_df, row_number() != 1), aes(x = `Labor Force Statistics fr
 avgwage_df <- read.csv("datafiles/avgwage.csv")
 
 ggplot(avgwage_df, aes(x = Year, y = Index, group=1)) +
-  geom_line(color = "#ffee00", size = 1) +
+  geom_line(color = "#ff0310", size = 1) +
   geom_point(size = 1) +
-  labs(title = "( Average Wage )",
-       x = "Year", y = "$") +
-  theme_minimal()
+  labs(title = "( Average American Wage )",
+       x = "Year", y = "Amount ($)") +
+  theme_bw()
 
 ```
 
@@ -356,32 +376,33 @@ home_df$Year <- as.Date(home_df$Year, format = "%Y.%m.%d")
 
 ```{r current}
 
-ggplot(home_df, aes(x = Year, y = Price)) +
-  geom_line(color = "#006aff", size = 1) +
-  geom_point(size = 1) +
-  labs(title = "(Home Prices)",
-       x = "Year", y = "Price") +
-  theme_minimal()
+ggplot(home_df, aes(x = Year, y = Price / 1000)) +
+  geom_line(color = "#ffe819", size = 2) +
+  geom_point(size = 0.5) +
+  scale_y_continuous(limits = c(0, NA), breaks = seq(0, 400, by = 50)) +
+  labs(title = "Average American Home Price (Since 1996)",
+       x = "Year", y = "Price (Thousands)") +
+  theme_bw()
 
-ggplot(amergdpgrowth_df, aes(x = Year, y = GDP)) +
-  geom_line(color = "#9d32a8", size = 1) +
+ggplot(amergdpgrowth_df, aes(x = Year, y = GDP /1000000000000)) +
+  geom_line(color = "#eb1df2", size = 1) +
   geom_point(size = 1) +
   labs(title = "( American GDP )",
-       x = "Year", y = "GDP $") +
-  theme_minimal()
+       x = "Year", y = "GDP $ (Trillions)") +
+  theme_bw()
 
 ggplot(amergdpgrowthrate_df, aes(x = Year, y = GDP)) +
-  geom_line(color = "#32a84a", size = 1) +
+  geom_line(color = "#03ff20", size = 1) +
   geom_point(size = 1) +
   labs(title = "( American GDP Growth Rate )",
-       x = "Year", y = "Percentage %") +
-  theme_minimal()
+       x = "Year", y = "Percentage (%)") +
+  theme_bw()
 
 ggplot(amergdppercap_df, aes(x = Year, y = GDP)) +
   geom_line(color = "#3263a8", size = 1) +
   geom_point(size = 1) +
   labs(title = "( American GDP Per Capita )",
-       x = "Year", y = "Amount $") +
-  theme_minimal()
+       x = "Year", y = "Amount ($)") +
+  theme_bw()
 
 ```

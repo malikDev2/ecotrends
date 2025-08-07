@@ -1,0 +1,2 @@
+"0","inflationrate_df <- read.csv(""datafiles/inflarate.csv"")"
+"0","dbWriteTable(con, ""inflation rate"", inflationrate_df, overwrite = TRUE)"
