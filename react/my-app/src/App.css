@@ -1,34 +1,64 @@
-.home{
+.home-wrapper {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.4s ease;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+
+.home {
     border: 2px solid black;
     width: 150px;
     height: 150px;
     justify-content: center;
+    align-items: center;
     display: flex;
     border-radius: 20px;
-    transition: 1s;
-    text-decoration: none;
-    
+    transition: transform 0.4s ease;
 }
 
-.home h2{
-    color: black;
+.home img {
+    max-width: 80%;
+    max-height: 80%;
 }
 
+.description-box {
+    margin-left: 10px;
+    height: 130px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    display: flex;
 
-h1{
-    justify-self: center;
+    padding: 10px;
+    background-color: navy; 
+    color: white;
+    border-radius: 10px;
+    max-width: 200px;
+    box-shadow: 0px 2px 6px rgba(0,0,0,0.2);
+    font-size: 0.9rem;
+    animation: fadeIn 0.8s ease;
 }
 
-.home:hover{
-    padding: 5px;
-    border-radius: 25px;
-    cursor: pointer;
-}
-
-.homedivs{
-    gap: 10px;
+.homedivs {
+    gap: 15px;
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
+}
+
+h1 {
+    text-align: center;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateX(-5px); }
+    to { opacity: 1; transform: translateX(0); }
 }
