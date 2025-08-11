@@ -1,3 +1,6 @@
+import { Link } from "react-router-dom";
+
+
 import React, { useState } from "react";
 import homeprice from "../assets/homeprice.png";
 import price from "../assets/price.png";
@@ -131,6 +134,9 @@ const Afford: React.FC = () => {
           </div>
         </div>
       </div>
+      <Link to="/">
+        <button>Back</button>
+    </Link>
     </div>
   );
 };
