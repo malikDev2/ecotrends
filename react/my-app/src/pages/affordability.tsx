@@ -3,14 +3,15 @@ import { Link } from "react-router-dom";
 
 import React, { useState } from "react";
 import homeprice from "../assets/homeprice.png";
+import tut from "../assets/tuition.png";
 import price from "../assets/price.png";
 import wage from "../assets/wage.png";
 import verd from "../assets/verd.png";
 
-type ChartId = "home" | "wage" | "price" | "verdict";
+type ChartId = "home" | "tuition"  |  "wage" | "price" | "verdict";
 
 const DEFAULT_BODY_BG = "#190088ff";
-const PAGE_BG = "#f5f7ff";
+const PAGE_BG = "#faffa1ff";
 
 // Verdict-specific colors (scoped to this file/component)
 const VERDICT_COLORS = {
@@ -24,6 +25,7 @@ const Afford: React.FC = () => {
   // independent toggles per card (no auto-closing others)
   const [expanded, setExpanded] = useState<Record<ChartId, boolean>>({
     home: false,
+    tuition: false,
     wage: false,
     price: false,
     verdict: false,
@@ -58,6 +60,26 @@ const Afford: React.FC = () => {
           <div className="chart-row">
             <img src={homeprice} alt="Home prices chart" />
             <div className={`expand-content ${expanded.home ? "show" : ""}`}>
+              <p>
+                Over recent years, home values climbed faster than many wages,
+                lifting down payment hurdles and monthly costs.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Tuition */}
+        <div
+          className={`chartdiv ${expanded.home ? "expanded" : ""}`}
+          onClick={() => toggle("tuition")}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => (e.key === "Enter" || e.key === " " ? toggle("tuition") : undefined)}
+        >
+          <h2>Tuition</h2>
+          <div className="chart-row">
+            <img src={tut} alt="Home prices chart" />
+            <div className={`expand-content ${expanded.tuition ? "show" : ""}`}>
               <p>
                 Over recent years, home values climbed faster than many wages,
                 lifting down payment hurdles and monthly costs.
