@@ -13,9 +13,9 @@ const DEFAULT_BODY_BG = "#190088ff";
 const PAGE_BG = "#faffa1ff";
 
 const VERDICT_COLORS = {
-  bodyBg: "#fff15bff",
+  bodyBg: "#f74141ff",
   bodyText: "#030303ff",
-  verdictBg: "#ffcf99",
+  verdictBg: "#ff999cff",
   verdictBase: "#ffe8cc",
 };
 
@@ -35,7 +35,7 @@ const Ineq: React.FC = () => {
 
   return (
     <div className="afford-page" style={{ backgroundColor: PAGE_BG, minHeight: "100vh" }}>
-      <h1 style={{ marginTop: 0, textAlign: "center" }}>Affordability</h1>
+      <h1 style={{ marginTop: 0, textAlign: "center" }}>Inequality</h1>
 
       <div
         className="bodydiv"
@@ -53,7 +53,7 @@ const Ineq: React.FC = () => {
           tabIndex={0}
           onKeyDown={(e) => (e.key === "Enter" || e.key === " " ? toggle("topo") : undefined)}
         >
-          <h2>Top One</h2>
+          <h2>Top One Percent</h2>
           <div className="chart-row">
             <img src={top} alt="Home prices chart" />
             <div className={`expand-content ${expanded.topo ? "show" : ""}`}>
@@ -73,7 +73,7 @@ const Ineq: React.FC = () => {
           tabIndex={0}
           onKeyDown={(e) => (e.key === "Enter" || e.key === " " ? toggle("ten") : undefined)}
         >
-          <h2>Top Ten</h2>
+          <h2>Top Ten Percent</h2>
           <div className="chart-row">
             <img src={topt} alt="Home prices chart" />
             <div className={`expand-content ${expanded.ten ? "show" : ""}`}>
@@ -84,6 +84,7 @@ const Ineq: React.FC = () => {
             </div>
           </div>
         </div>
+        
         {/* Bottom Half */}
         <div
           className={`chartdiv ${expanded.topo ? "expanded" : ""}`}
@@ -104,8 +105,6 @@ const Ineq: React.FC = () => {
           </div>
         </div>
 
-        
-
         {/* Verdict */}
         <div
           className={`chartdiv verdict ${expanded.verdict ? "expanded" : ""}`}
@@ -113,7 +112,6 @@ const Ineq: React.FC = () => {
           role="button"
           tabIndex={0}
           onKeyDown={(e) => (e.key === "Enter" || e.key === " " ? toggle("verdict") : undefined)}
-          // attach verdict colors directly to this div (also as data-attrs if you want to reuse/read them)
           style={{
             backgroundColor: verdictActive ? VERDICT_COLORS.verdictBg : VERDICT_COLORS.verdictBase,
             transition: "background-color 0.35s ease",
@@ -134,7 +132,7 @@ const Ineq: React.FC = () => {
           </div>
         </div>
       </div>
-      <Link to="/">
+      <Link to="/" className="b">
         <button>Back</button>
     </Link>
     </div>

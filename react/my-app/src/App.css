@@ -145,3 +145,24 @@ h1 {
   .chartdiv img, .chartdiv .img-placeholder { width: 100%; }
   .chartdiv, .chartdiv.expanded { max-width: 100%; }
 }
+
+button{
+  border: 2px solid black;
+  display: flex;
+  justify-self: center;
+  transition: 1s;
+}
+
+button:hover{
+  background: red;
+  cursor: pointer;
+
+}
+
+.b{
+  text-decoration: none;
+}
+
+.afford-page{
+  padding-bottom: 20px;
+}

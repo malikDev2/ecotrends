@@ -156,7 +156,7 @@ const Afford: React.FC = () => {
           </div>
         </div>
       </div>
-      <Link to="/">
+      <Link to="/" className="b">
         <button>Back</button>
     </Link>
     </div>

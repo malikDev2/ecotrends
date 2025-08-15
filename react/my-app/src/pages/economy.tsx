@@ -17,9 +17,9 @@ const DEFAULT_BODY_BG = "#190088ff";
 const PAGE_BG = "#f5f7ff";
 
 const VERDICT_COLORS = {
-  bodyBg: "#fff15bff",
+  bodyBg: "#4efa30ff",
   bodyText: "#030303ff",
-  verdictBg: "#ffcf99",
+  verdictBg: "#ceff99ff",
   verdictBase: "#ffe8cc",
 };
 
@@ -199,7 +199,7 @@ const Eco: React.FC = () => {
           </div>
         </div>
       </div>
-      <Link to="/">
+      <Link to="/" className="b">
         <button>Back</button>
     </Link>
     </div>
