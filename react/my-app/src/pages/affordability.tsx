@@ -61,8 +61,7 @@ const Afford: React.FC = () => {
             <img src={homeprice} alt="Home prices chart" />
             <div className={`expand-content ${expanded.home ? "show" : ""}`}>
               <p>
-                Over recent years, home values climbed faster than many wages,
-                lifting down payment hurdles and monthly costs.
+                Since 1996, the average home price within the United States has swelled from just above $100k to well over $350k. In the same timeframe, the average age of first time home owners leaped from 29 to 38.
               </p>
             </div>
           </div>
@@ -70,7 +69,7 @@ const Afford: React.FC = () => {
 
         {/* Tuition */}
         <div
-          className={`chartdiv ${expanded.home ? "expanded" : ""}`}
+          className={`chartdiv ${expanded.tuition ? "expanded" : ""}`}
           onClick={() => toggle("tuition")}
           role="button"
           tabIndex={0}
@@ -81,8 +80,7 @@ const Afford: React.FC = () => {
             <img src={tut} alt="Home prices chart" />
             <div className={`expand-content ${expanded.tuition ? "show" : ""}`}>
               <p>
-                Over recent years, home values climbed faster than many wages,
-                lifting down payment hurdles and monthly costs.
+                The average annual college tuition (without housing) in 2025 is $13,500. This figure is up from around $9000 in 2010, $5000 in 2000, and $1000 in 1980.
               </p>
             </div>
           </div>
@@ -101,8 +99,7 @@ const Afford: React.FC = () => {
             <img src={wage} alt="Wages chart" />
             <div className={`expand-content ${expanded.wage ? "show" : ""}`}>
               <p>
-                Wage growth has improved but remains uneven across sectors and regions,
-                shaping affordability in different ways.
+                The average American wage as of 2025 is $66,621. Average American wage crossed the $50k mark in 2017, 40k in 2007, 30k in 1999, and 10k in 1978.
               </p>
             </div>
           </div>
@@ -121,8 +118,7 @@ const Afford: React.FC = () => {
             <img src={price} alt="Price increase chart" />
             <div className={`expand-content ${expanded.price ? "show" : ""}`}>
               <p>
-                Essential categories like housing and transport remain elevated; even with
-                cooler inflation, higher price levels strain budgets.
+                A dollar in 1957 is $11.44 today. While the dollar is typically a very stable currency, high periods of inflation within the 70s and around COVID harmed its value. 
               </p>
             </div>
           </div>
@@ -149,8 +145,7 @@ const Afford: React.FC = () => {
             <img src={verd} alt="" />
             <div className={`expand-content ${expanded.verdict ? "show" : ""}`}>
               <p>
-                Affordability is tight: prices are high relative to wages, but continued
-                wage gains and easing price growth would help.
+                Affordability is certainly an area of concern within America. Although wages have doubled since 2000, already high-paying positions create the bulk of this gain. With home prices and tuition tripling within the same span, it's hard to notice any wage gains at all.  
               </p>
             </div>
           </div>

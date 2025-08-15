@@ -9,6 +9,14 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r import tables}
+
+library(DBI)
+library(RSQLite)
+library(readxl)
+
+con <- dbConnect(RSQLite::SQLite(), "econ_data.db")
+
+
 gdpgrowth_df <- read.csv("datafiles/gdpgrowth.csv", skip = 4)
 dbWriteTable(con, "gdp growth", gdpgrowth_df, overwrite = TRUE)
 
@@ -250,14 +258,14 @@ library(ggplot2)
 library(dplyr)
 
 
-ggplot(inflation_df, aes(x = observation_date, y = CPILFESL)) +
+ggplot(inflation_df, aes(x = observation_date, y = CPILFESL / 28.5)) +
   geom_line(color = "#006aff", size = 2) +
   geom_point(size = 0.5) +
   scale_x_date(breaks = seq(from = as.Date("1957-01-01"),
                             to = as.Date("2025-06-01"),
                             by = "5 years"),
                date_labels = "%Y") +
-  labs(title = "Overtime American Price Increase ($28.50 in 1957)",
+  labs(title = "Overtime American Price Increase ($1.00 in 1957)",
        x = "Year", y = "Price ($)") +
   theme_bw()
 

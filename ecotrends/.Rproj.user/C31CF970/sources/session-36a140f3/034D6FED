@@ -15,10 +15,10 @@
         "totalObservations": "822",
         "displayedObservations": "822",
         "variables": "2",
-        "cacheKey": "2D897CE5",
+        "cacheKey": "847F56D6",
         "object": "inflation_df",
         "environment": "",
-        "contentUrl": "grid_resource/gridviewer.html?env=&obj=inflation_df&cache_key=2D897CE5&max_display_columns=50",
+        "contentUrl": "grid_resource/gridviewer.html?env=&obj=inflation_df&cache_key=847F56D6&max_display_columns=50",
         "preview": "0",
         "source_window_id": "",
         "Source": "Source"
