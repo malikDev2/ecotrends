@@ -64,8 +64,8 @@ const Eco: React.FC = () => {
             <img src={gdp} alt="Home prices chart" />
             <div className={`expand-content ${expanded.gdp ? "show" : ""}`}>
               <p>
-                Over recent years, home values climbed faster than many wages,
-                lifting down payment hurdles and monthly costs.
+                The United States became the world's largest economy in the 1890's, a position it has yet to give up. In 2024, the United States emassed a GDP of $29 trillion, over 10 trillion dollars more than the world's second largest economy, China. 
+                America's large GDP is supported by its expansive technology, entertainment, service, and various other industries.
               </p>
             </div>
           </div>
@@ -83,8 +83,7 @@ const Eco: React.FC = () => {
             <img src={gdprate} alt="Home prices chart" />
             <div className={`expand-content ${expanded.grate ? "show" : ""}`}>
               <p>
-                Over recent years, home values climbed faster than many wages,
-                lifting down payment hurdles and monthly costs.
+                The United States' GDP typically grows 2-5% every year. Since 1960, the American GDP has only gone down seven times, with a drop of over 1% only occuring three times in the past sixty five years.
               </p>
             </div>
           </div>
@@ -102,15 +101,14 @@ const Eco: React.FC = () => {
             <img src={gdppercap} alt="Home prices chart" />
             <div className={`expand-content ${expanded.gcap ? "show" : ""}`}>
               <p>
-                Over recent years, home values climbed faster than many wages,
-                lifting down payment hurdles and monthly costs.
+                In 2024, the United States' GDP per capita reached $85,809. America's GDP per capita continues to increase as economic expansion outpaces population group.
               </p>
             </div>
           </div>
         </div>
         {/* Inflation */}
         <div
-          className={`chartdiv ${expanded.gcap ? "expanded" : ""}`}
+          className={`chartdiv ${expanded.infla ? "expanded" : ""}`}
           onClick={() => toggle("infla")}
           role="button"
           tabIndex={0}
@@ -121,15 +119,14 @@ const Eco: React.FC = () => {
             <img src={inflation} alt="Home prices chart" />
             <div className={`expand-content ${expanded.infla ? "show" : ""}`}>
               <p>
-                Over recent years, home values climbed faster than many wages,
-                lifting down payment hurdles and monthly costs.
+                Inflation has remained relatively steady since the 1960's. Outside of the Oil shocks of the 70s and the lockdown, inflation rates have remained within 1-5%. 
               </p>
             </div>
           </div>
         </div>
         {/* Unemployment */}
         <div
-          className={`chartdiv ${expanded.gcap ? "expanded" : ""}`}
+          className={`chartdiv ${expanded.unemp ? "expanded" : ""}`}
           onClick={() => toggle("unemp")}
           role="button"
           tabIndex={0}
@@ -148,7 +145,7 @@ const Eco: React.FC = () => {
         </div>
         {/* Unemployment Rate */}
         <div
-          className={`chartdiv ${expanded.gcap ? "expanded" : ""}`}
+          className={`chartdiv ${expanded.unrate ? "expanded" : ""}`}
           onClick={() => toggle("unrate")}
           role="button"
           tabIndex={0}
@@ -159,8 +156,7 @@ const Eco: React.FC = () => {
             <img src={unemprate} alt="Home prices chart" />
             <div className={`expand-content ${expanded.unrate ? "show" : ""}`}>
               <p>
-                Over recent years, home values climbed faster than many wages,
-                lifting down payment hurdles and monthly costs.
+                American employment has remained strong since the close of WW2, only exceeding 9% during the Oil shocks and the Great recession.
               </p>
             </div>
           </div>
