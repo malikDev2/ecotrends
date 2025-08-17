@@ -1,9 +1,0 @@
-"0",""
-"0","if (is.factor(inflation_df$observation_date)) {"
-"0","  inflation_df$observation_date <- as.character(inflation_df$observation_date)"
-"0","}"
-"0","inflation_df$observation_date <- as.Date(paste0(inflation_df$observation_date, ""-01""), format = ""%Y-%m-%d"")"
-"0",""
-"0","unemrate_df$...2 <- as.numeric(unemrate_df$...2)"
-"2","Error: object 'unemrate_df' not found
-"

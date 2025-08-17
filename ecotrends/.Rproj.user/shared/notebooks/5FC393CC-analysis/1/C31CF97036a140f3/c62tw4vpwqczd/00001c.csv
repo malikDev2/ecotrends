@@ -7,5 +7,3 @@
 "0","  labs(title = ""( American Unemployment Rate )"","
 "0","       x = ""Year"", y = ""Percent (%)"") +"
 "0","  theme_bw()"
-"2","Error: object 'unemrate_df' not found
-"

@@ -278,13 +278,13 @@ ggplot(filter(unemrate_df, row_number() != 1), aes(x = `Labor Force Statistics f
        x = "Year", y = "Percent (%)") +
   theme_bw()
 
-ggplot(filter(unempop_df, row_number() != 1), aes(x = `Labor Force Statistics from the Current Population Survey` , y = ...2)) +
+ggplot(filter(unempop_df, row_number() != 1), aes(x = `Labor Force Statistics from the Current Population Survey` , y = ...2 / 1000)) +
   geom_line(color = "#ba040d", size = 1) +
   scale_x_continuous(breaks = seq(1948, 2025, by = 10)) +
-  scale_y_continuous(breaks = seq(0, 20000, by = 3000)) +
+  scale_y_continuous(breaks = seq(0, 20, by = 3)) +
   geom_point(size = 1) +
   labs(title = "( American Unemployed Population )",
-       x = "Year", y = "Amount") +
+       x = "Year", y = "Amount (Millions)") +
   theme_bw()
 
 

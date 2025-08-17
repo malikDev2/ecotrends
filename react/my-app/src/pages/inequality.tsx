@@ -58,8 +58,7 @@ const Ineq: React.FC = () => {
             <img src={top} alt="Home prices chart" />
             <div className={`expand-content ${expanded.topo ? "show" : ""}`}>
               <p>
-                Over recent years, home values climbed faster than many wages,
-                lifting down payment hurdles and monthly costs.
+                Since 1960, the percentage of American wealth held by the wealthiest 1% of Americans has risen from 13% to 20 percent. This demographic's wealth share decreased from 1965-1980 down to 10%, only to increase ever since. Disposable wealth for investments (properties, businesses, stocks), high-profile connections, and the ability to easily afford private/higher education are amongst the 1%'s advantages.
               </p>
             </div>
           </div>
@@ -67,7 +66,7 @@ const Ineq: React.FC = () => {
 
         {/* Top Ten Percent */}
         <div
-          className={`chartdiv ${expanded.topo ? "expanded" : ""}`}
+          className={`chartdiv ${expanded.ten ? "expanded" : ""}`}
           onClick={() => toggle("ten")}
           role="button"
           tabIndex={0}
@@ -78,8 +77,7 @@ const Ineq: React.FC = () => {
             <img src={topt} alt="Home prices chart" />
             <div className={`expand-content ${expanded.ten ? "show" : ""}`}>
               <p>
-                Over recent years, home values climbed faster than many wages,
-                lifting down payment hurdles and monthly costs.
+                The wealthiest ten percent of Americans follow a similar path to wealthiest 1%. The top 10 percent possed 35% of the nation's capital in 1960, fell to 30% by 1980, and now posseses 47%, nearly half of America's wealth today. While members of the top ten don't possess all of the advantages of 1%, lack of concern over rent/housing, tuition, employment, and loans grants this group a large advantage over the typical American.
               </p>
             </div>
           </div>
@@ -87,7 +85,7 @@ const Ineq: React.FC = () => {
         
         {/* Bottom Half */}
         <div
-          className={`chartdiv ${expanded.topo ? "expanded" : ""}`}
+          className={`chartdiv ${expanded.bot ? "expanded" : ""}`}
           onClick={() => toggle("bot")}
           role="button"
           tabIndex={0}
@@ -96,7 +94,7 @@ const Ineq: React.FC = () => {
           <h2>Bottom Half</h2>
           <div className="chart-row">
             <img src={both} alt="Home prices chart" />
-            <div className={`expand-content ${expanded.topo ? "bot" : ""}`}>
+            <div className={`expand-content ${expanded.bot ? "show" : ""}`}>
               <p>
                 Over recent years, home values climbed faster than many wages,
                 lifting down payment hurdles and monthly costs.

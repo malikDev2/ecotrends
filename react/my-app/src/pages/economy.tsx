@@ -137,8 +137,7 @@ const Eco: React.FC = () => {
             <img src={unemppop} alt="Home prices chart" />
             <div className={`expand-content ${expanded.unemp ? "show" : ""}`}>
               <p>
-                Over recent years, home values climbed faster than many wages,
-                lifting down payment hurdles and monthly costs.
+                The United States has managed to keep its unemployed population under ten million outside of the oil crisis, the recession, and lockdown. While industries such as manufacturing and mining have dwindled, new white-collar and service jobs have kept Americans employed.
               </p>
             </div>
           </div>
@@ -188,8 +187,7 @@ const Eco: React.FC = () => {
             <img src={verd} alt="" />
             <div className={`expand-content ${expanded.verdict ? "show" : ""}`}>
               <p>
-                Affordability is tight: prices are high relative to wages, but continued
-                wage gains and easing price growth would help.
+                The United States' economy remians the strongest in the world. Despite global changes such as the shift towards green energy, the rise of technology, and the relocation of global manufacture, America has managed to keep inflation low, employment high, and has maintained the world's largest economy.
               </p>
             </div>
           </div>
