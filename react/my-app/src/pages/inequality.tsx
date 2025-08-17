@@ -96,8 +96,7 @@ const Ineq: React.FC = () => {
             <img src={both} alt="Home prices chart" />
             <div className={`expand-content ${expanded.bot ? "show" : ""}`}>
               <p>
-                Over recent years, home values climbed faster than many wages,
-                lifting down payment hurdles and monthly costs.
+                The least wealthy half of American's face an opposite trend than the top. After possessing 18% of American wealth in 1960, and 21% in 1974, the group now only possesses 13% of the nations wealth. With price increases of rent, tuition, and groceries outpacing wage growth, many American's find theirselves in an increasingly dire financial situation. 
               </p>
             </div>
           </div>
@@ -123,8 +122,10 @@ const Ineq: React.FC = () => {
             <img src={verd} alt="" />
             <div className={`expand-content ${expanded.verdict ? "show" : ""}`}>
               <p>
-                Affordability is tight: prices are high relative to wages, but continued
-                wage gains and easing price growth would help.
+                American inequality is approaching a critical point. Less and less young Americans are able to afford a home or rent. College tuition is higher than ever, while degrees continue to decrease in value, resulting in increased under/unemployment and debt amongst graduates.
+              </p>
+              <p>
+                The American middle class is shrinking, and for the first time since the great depression, children can expect to be less financially well off than their parents.
               </p>
             </div>
           </div>
