@@ -10,9 +10,9 @@ type SectionId = "affordability" | "economy" | "inequality";
 
 interface Section {
   id: SectionId;
-  color: string;
+  color: string;   
   bgColor: string;
-  img: string; // relies on *.png module declaration
+  img: string;
   desc: string;
 }
 
@@ -55,8 +55,10 @@ const Home: React.FC = () => {
     }
   };
 
-  const currentBg: string =
+  const currentBg =
     selected ? sections.find((s) => s.id === selected)?.bgColor ?? "white" : "white";
+
+  const active = selected ? sections.find((s) => s.id === selected)! : null;
 
   return (
     <div
@@ -68,27 +70,44 @@ const Home: React.FC = () => {
     >
       <h1 style={{ marginTop: 0, textAlign: "center" }}>Economic Trends</h1>
 
-      <div className="homedivs">
-        {sections.map((section) => (
-          <div
-            key={section.id}
-            className="home-wrapper"
-            onClick={() => handleClick(section.id)}
-            role="button"
-            tabIndex={0}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") handleClick(section.id);
-            }}
-          >
-            <div className="home" style={{ background: section.color }}>
-              <img src={section.img} alt={section.id} />
+      {/* Image + description above rectangle */}
+      {active && (
+        <div className="detail-panel vertical">
+          <img className="detail-img" src={active.img} alt={active.id} />
+          <div className="detail-text">
+            <h2 style={{ margin: "0 0 .25rem" }}>
+              {active.id.charAt(0).toUpperCase() + active.id.slice(1)}
+            </h2>
+            <p>{active.desc}</p>
+            <div className="detail-hint" aria-hidden="true">
+              Click the highlighted section again to open the page →
             </div>
-
-            {selected === section.id && (
-              <div className="description-box">{section.desc}</div>
-            )}
           </div>
-        ))}
+        </div>
+      )}
+
+      <div className="hero columns" role="group" aria-label="Topic selector">
+        {sections.map((section) => {
+          const isActive = selected === section.id;
+          return (
+            <button
+              key={section.id}
+              type="button"
+              className={`hero-slice ${isActive ? "active" : selected ? "dimmed" : ""}`}
+              style={{ ["--sliceColor" as any]: section.color }}
+              aria-pressed={isActive}
+              onClick={() => handleClick(section.id)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  handleClick(section.id);
+                }
+              }}
+            >
+              <span className="slice-label">{section.id}</span>
+            </button>
+          );
+        })}
       </div>
     </div>
   );

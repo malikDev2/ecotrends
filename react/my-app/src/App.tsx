@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import Home from "./pages/home.tsx";
 import Eco from "./pages/economy.tsx";
 import Afford from './pages/affordability.tsx';
@@ -8,7 +7,7 @@ import './App.css'
 import { HashRouter, Routes, Route } from "react-router-dom";
 
 function App() {
-  const [count, setCount] = useState(0)
+  
 
   return (
     <>
