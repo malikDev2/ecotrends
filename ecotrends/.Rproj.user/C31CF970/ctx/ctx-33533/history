@@ -1,0 +1,295 @@
+install.packages("DBI")
+install.packages("RSQLite")
+install.packages("dplyr")
+install.packages("ggplot2")
+library(DBI)
+library(RSQLite)
+con <- dbConnect(SQLite(), "econ_data.db")
+knitr::opts_chunk$set(echo = TRUE)
+tuition_df <- read.csv("datafiles/tuition.csv")
+View(tuition_df)
+knitr::opts_chunk$set(echo = TRUE)
+tuition_df <- read.csv("datafiles/tuition.csv")
+ggplot(tuition_df, x = Year, y = Estimated_Tuition) +
+geom_line( color = "#123123", size = 1) +
+scale_x_continuous(breaks = seq(1980, 2025, by = 5)) +
+scale_y_continuous(breaks = seq(0, 14000, by = 2000)) +
+geom_point(size = 1) +
+labs(title = "( Average American Tuition Cost )", x = "Year", y = "Cost ($)") +
+theme_bw()
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+tuition_df <- read.csv("datafiles/tuition.csv")
+ggplot(tuition_df, x = Year, y = Estimated_Tuition) +
+geom_line( color = "#123123", size = 1) +
+scale_x_continuous(breaks = seq(1980, 2025, by = 5)) +
+scale_y_continuous(breaks = seq(0, 14000, by = 2000)) +
+geom_point(size = 1) +
+labs(title = "( Average American Tuition Cost )", x = "Year", y = "Cost ($)") +
+theme_bw()
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+tuition_df <- read.csv("datafiles/tuition.csv")
+ggplot(tuition_df, aes(x = Year, y = Estimated_Tuition)) +
+geom_line( color = "#123123", size = 1) +
+scale_x_continuous(breaks = seq(1980, 2025, by = 5)) +
+scale_y_continuous(breaks = seq(0, 14000, by = 2000)) +
+geom_point(size = 1) +
+labs(title = "( Average American Tuition Cost )", x = "Year", y = "Cost ($)") +
+theme_bw()
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+tuition_df <- read.csv("datafiles/tuition.csv")
+ggplot(tuition_df, aes(x = Year, y = Estimated_Tuition)) +
+geom_line( color = "#8e02d4", size = 1) +
+scale_x_continuous(breaks = seq(1980, 2025, by = 5)) +
+scale_y_continuous(breaks = seq(0, 14000, by = 2000)) +
+geom_point(size = 1) +
+labs(title = "( Average American Tuition Cost )", x = "Year", y = "Cost ($)") +
+theme_bw()
+knitr::opts_chunk$set(echo = TRUE)
+gdpgrowth_df <- read.csv("datafiles/gdpgrowth.csv", skip = 4)
+dbWriteTable(con, "gdp growth", gdpgrowth_df, overwrite = TRUE)
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+gdpgrowth_df <- read.csv("datafiles/gdpgrowth.csv", skip = 4)
+dbWriteTable(con, "gdp growth", gdpgrowth_df, overwrite = TRUE)
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(DBI)
+gdpgrowth_df <- read.csv("datafiles/gdpgrowth.csv", skip = 4)
+dbWriteTable(con, "gdp growth", gdpgrowth_df, overwrite = TRUE)
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(DBI)
+gdpgrowth_df <- read.csv("datafiles/gdpgrowth.csv", skip = 4)
+dbWriteTable(con, "gdp growth", gdpgrowth_df, overwrite = TRUE)
+View(con)
+install.packages(c("DBI", "RSQLite", "readxl"))
+knitr::opts_chunk$set(echo = TRUE)
+library(DBI)
+library(RSQLite)
+library(readxl))
+knitr::opts_chunk$set(echo = TRUE)
+library(DBI)
+library(RSQLite)
+library(readxl)
+gdpgrowth_df <- read.csv("datafiles/gdpgrowth.csv", skip = 4)
+dbWriteTable(con, "gdp growth", gdpgrowth_df, overwrite = TRUE)
+knitr::opts_chunk$set(echo = TRUE)
+library(DBI)
+library(RSQLite)
+library(readxl)
+con <- dbConnect(RSQLite::SQLite(), "econ_data.db")
+gdpgrowth_df <- read.csv("datafiles/gdpgrowth.csv", skip = 4)
+dbWriteTable(con, "gdp growth", gdpgrowth_df, overwrite = TRUE)
+gdpgrowthrate_df <- read.csv("datafiles/gdpgrowthrate.csv", skip = 4)
+dbWriteTable(con, "gdp growth rate", gdpgrowthrate_df, overwrite = TRUE)
+gdppercapita_df <- read.csv("datafiles/gdppercapita.csv", skip = 4)
+dbWriteTable(con, "gdp per capita", gdppercapita_df, overwrite = TRUE)
+homeprices_df <- read.csv("datafiles/homeprices.csv")
+dbWriteTable(con, "home prices", homeprices_df, overwrite = TRUE)
+inflationrate_df <- read.csv("datafiles/inflarate.csv")
+dbWriteTable(con, "inflation rate", inflationrate_df, overwrite = TRUE)
+inflation_df <- read.csv("datafiles/inflation.csv")
+dbWriteTable(con, "inflation", inflation_df, overwrite = TRUE)
+unemployedpopulation_df <- read_excel("datafiles/unemppop.xlsx", sheet = 1)
+dbWriteTable(con, "unemployed", unemployedpopulation_df, overwrite = TRUE)
+unemploymentrate_df <- read_excel("datafiles/uneprate.xlsx", sheet = 1)
+dbWriteTable(con, "unemployment rate", unemploymentrate_df, overwrite = TRUE)
+workingpopulation_df <- read_excel("datafiles/workpop.xlsx", sheet = 1)
+dbWriteTable(con, "working population", workingpopulation_df, overwrite = TRUE)
+wealth_df <- read.csv("datafiles/wealthineq.csv")
+dbWriteTable(con, "wealth", wealth_df, overwrite = TRUE)
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+tuition_df <- read.csv("datafiles/tuition.csv")
+ggplot(tuition_df, aes(x = Year, y = Estimated_Tuition)) +
+geom_line( color = "#8e02d4", size = 1) +
+scale_x_continuous(breaks = seq(1980, 2025, by = 5)) +
+scale_y_continuous(breaks = seq(0, 14000, by = 2000)) +
+geom_point(size = 1) +
+labs(title = "( Average American Tuition Cost )", x = "Year", y = "Cost ($)") +
+theme_bw()
+View(tuition_df)
+knitr::opts_chunk$set(echo = TRUE)
+avgwage_df <- read.csv("datafiles/avgwage.csv")
+ggplot(avgwage_df, aes(x = Year, y = Index, group=1)) +
+geom_line(color = "#ff0310", size = 1) +
+geom_point(size = 1) +
+labs(title = "( Average American Wage )",
+x = "Year", y = "Amount ($)") +
+theme_bw()
+View(avgwage_df)
+View(inflation_df)
+knitr::opts_chunk$set(echo = TRUE)
+library(lubridate)
+library(ggplot2)
+library(dplyr)
+ggplot(inflation_df, aes(x = observation_date, y = CPILFESL / 28.5)) +
+geom_line(color = "#006aff", size = 2) +
+geom_point(size = 0.5) +
+scale_x_date(breaks = seq(from = as.Date("1957-01-01"),
+to = as.Date("2025-06-01"),
+by = "5 years"),
+date_labels = "%Y") +
+labs(title = "Overtime American Price Increase ($28.50 in 1957)",
+x = "Year", y = "Price ($)") +
+theme_bw()
+knitr::opts_chunk$set(echo = TRUE)
+if (is.factor(inflation_df$observation_date)) {
+inflation_df$observation_date <- as.character(inflation_df$observation_date)
+}
+inflation_df$observation_date <- as.Date(paste0(inflation_df$observation_date, "-01"), format = "%Y-%m-%d")
+unemrate_df$...2 <- as.numeric(unemrate_df$...2)
+knitr::opts_chunk$set(echo = TRUE)
+library(lubridate)
+library(ggplot2)
+library(dplyr)
+ggplot(inflation_df, aes(x = observation_date, y = CPILFESL / 28.5)) +
+geom_line(color = "#006aff", size = 2) +
+geom_point(size = 0.5) +
+scale_x_date(breaks = seq(from = as.Date("1957-01-01"),
+to = as.Date("2025-06-01"),
+by = "5 years"),
+date_labels = "%Y") +
+labs(title = "Overtime American Price Increase ($28.50 in 1957)",
+x = "Year", y = "Price ($)") +
+theme_bw()
+ggplot(filter(unemrate_df, row_number() != 1), aes(x = `Labor Force Statistics from the Current Population Survey` , y = ...2)) +
+geom_line(color = "#ff2b36", size = 1) +
+scale_x_continuous(breaks = seq(1948, 2025, by = 10)) +
+scale_y_continuous(breaks = seq(0, 12, by = 1)) +
+geom_point(size = 1) +
+labs(title = "( American Unemployment Rate )",
+x = "Year", y = "Percent (%)") +
+theme_bw()
+knitr::opts_chunk$set(echo = TRUE)
+library(lubridate)
+library(ggplot2)
+library(dplyr)
+ggplot(inflation_df, aes(x = observation_date, y = CPILFESL / 28.5)) +
+geom_line(color = "#006aff", size = 2) +
+geom_point(size = 0.5) +
+scale_x_date(breaks = seq(from = as.Date("1957-01-01"),
+to = as.Date("2025-06-01"),
+by = "5 years"),
+date_labels = "%Y") +
+labs(title = "Overtime American Price Increase ($1.00 in 1957)",
+x = "Year", y = "Price ($)") +
+theme_bw()
+ggplot(filter(unemrate_df, row_number() != 1), aes(x = `Labor Force Statistics from the Current Population Survey` , y = ...2)) +
+geom_line(color = "#ff2b36", size = 1) +
+scale_x_continuous(breaks = seq(1948, 2025, by = 10)) +
+scale_y_continuous(breaks = seq(0, 12, by = 1)) +
+geom_point(size = 1) +
+labs(title = "( American Unemployment Rate )",
+x = "Year", y = "Percent (%)") +
+theme_bw()
+View(gdpgrowth_df)
+View(gdpgrowthrate_df)
+View(gdppercapita_df)
+knitr::opts_chunk$set(echo = TRUE)
+workpop_df <- workingpopulation_df %>%
+slice(11:n())
+unempop_df <- unemployedpopulation_df %>%
+slice(11:n())
+unemrate_df <- unemploymentrate_df %>%
+slice(11:n())
+knitr::opts_chunk$set(echo = TRUE)
+if (is.factor(inflation_df$observation_date)) {
+inflation_df$observation_date <- as.character(inflation_df$observation_date)
+}
+inflation_df$observation_date <- as.Date(paste0(inflation_df$observation_date, "-01"), format = "%Y-%m-%d")
+unemrate_df$...2 <- as.numeric(unemrate_df$...2)
+unemrate_df$`Labor Force Statistics from the Current Population Survey` <- as.numeric(unemrate_df$`Labor Force Statistics from the Current Population Survey`)
+unempop_df$...2 <- as.numeric(unempop_df$...2)
+unempop_df$`Labor Force Statistics from the Current Population Survey` <- as.numeric(unempop_df$`Labor Force Statistics from the Current Population Survey`)
+workpop_df$...2 <- as.numeric(workpop_df$...2)
+workpop_df$`Labor Force Statistics from the Current Population Survey` <- as.numeric(workpop_df$`Labor Force Statistics from the Current Population Survey`)
+knitr::opts_chunk$set(echo = TRUE)
+library(lubridate)
+library(ggplot2)
+library(dplyr)
+ggplot(inflation_df, aes(x = observation_date, y = CPILFESL / 28.5)) +
+geom_line(color = "#006aff", size = 2) +
+geom_point(size = 0.5) +
+scale_x_date(breaks = seq(from = as.Date("1957-01-01"),
+to = as.Date("2025-06-01"),
+by = "5 years"),
+date_labels = "%Y") +
+labs(title = "Overtime American Price Increase ($1.00 in 1957)",
+x = "Year", y = "Price ($)") +
+theme_bw()
+ggplot(filter(unemrate_df, row_number() != 1), aes(x = `Labor Force Statistics from the Current Population Survey` , y = ...2)) +
+geom_line(color = "#ff2b36", size = 1) +
+scale_x_continuous(breaks = seq(1948, 2025, by = 10)) +
+scale_y_continuous(breaks = seq(0, 12, by = 1)) +
+geom_point(size = 1) +
+labs(title = "( American Unemployment Rate )",
+x = "Year", y = "Percent (%)") +
+theme_bw()
+ggplot(filter(unempop_df, row_number() != 1), aes(x = `Labor Force Statistics from the Current Population Survey` , y = ...2 / 1000)) +
+geom_line(color = "#ba040d", size = 1) +
+scale_x_continuous(breaks = seq(1948, 2025, by = 10)) +
+scale_y_continuous(breaks = seq(0, 20, by = 3)) +
+geom_point(size = 1) +
+labs(title = "( American Unemployed Population )",
+x = "Year", y = "Amount (Millions)") +
+theme_bw()
+ggplot(filter(workpop_df, row_number() != 1), aes(x = `Labor Force Statistics from the Current Population Survey` , y = ...2)) +
+geom_line(color = "#05f278", size = 1) +
+scale_x_continuous(breaks = seq(1948, 2025, by = 10)) +
+geom_point(size = 1) +
+labs(title = "( American Workforce Population )",
+x = "Year", y = "Amount") +
+theme_bw()
+knitr::opts_chunk$set(echo = TRUE)
+topone_df <- dbGetQuery(con, "
+SELECT *
+FROM wealth
+WHERE Percentile = 'p99p100'")
+topten_df <- dbGetQuery(con, "
+SELECT *
+FROM wealth
+WHERE Percentile = 'p90p100'")
+bothalf_df <- dbGetQuery(con, "
+SELECT *
+FROM wealth
+WHERE Percentile = 'p0p50'")
+amergdpgrowth_df <- dbGetQuery(con, "
+SELECT *
+FROM \"gdp growth\"
+WHERE `Country.Name` = 'United States'")
+amergdpgrowthrate_df <- dbGetQuery(con, "
+SELECT *
+FROM \"gdp growth rate\"
+WHERE `Country.Name` = 'United States'")
+amergdppercap_df <- dbGetQuery(con, "
+SELECT *
+FROM \"gdp per capita\"
+WHERE `Country.Name` = 'United States'")
+home_df <- dbGetQuery(con, "SELECT * FROM \"home prices\" WHERE RegionName = 'United States'")
+View(topten_df)
+View(topone_df)
+View(topone_df)
+View(topten_df)
+View(topone_df)
+View(topten_df)
+View(amergdpgrowth_df)
+View(bothalf_df)
+install.packages("tinytex")

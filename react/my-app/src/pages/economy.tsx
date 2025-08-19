@@ -101,7 +101,7 @@ const Eco: React.FC = () => {
             <img src={gdppercap} alt="Home prices chart" />
             <div className={`expand-content ${expanded.gcap ? "show" : ""}`}>
               <p>
-                In 2024, the United States' GDP per capita reached $85,809. America's GDP per capita continues to increase as economic expansion outpaces population group.
+                In 2024, the United States' GDP per capita reached $85,809. America's GDP per capita continues to increase as economic expansion outpaces population growth.
               </p>
             </div>
           </div>

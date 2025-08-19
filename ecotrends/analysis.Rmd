@@ -1,6 +1,8 @@
 ---
 title: "analysis.Rmd"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 date: "2025-07-23"
 ---
 
@@ -8,38 +10,15 @@ date: "2025-07-23"
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+```{r import tables}
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
-```
-
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
-
-```{r setup, message=FALSE, warning=FALSE}
 library(DBI)
 library(RSQLite)
-install.packages("readxl")
 library(readxl)
-library(dplyr)
-library(ggplot2)
 
-con <- dbConnect(SQLite(), "econ_data.db")
-```
+con <- dbConnect(RSQLite::SQLite(), "econ_data.db")
 
-```{r import tables}
+
 gdpgrowth_df <- read.csv("datafiles/gdpgrowth.csv", skip = 4)
 dbWriteTable(con, "gdp growth", gdpgrowth_df, overwrite = TRUE)
 
@@ -192,7 +171,7 @@ home_df <- dbGetQuery(con, "SELECT * FROM \"home prices\" WHERE RegionName = 'Un
 
 ```
 
-```{r package-install}
+```{r inflation-rate-df}
 inflationrate_df <- read.csv("datafiles/inflarate.csv")
 inflationrate_df$observation_date <- as.integer(inflationrate_df$observation_date)
 ```
@@ -281,14 +260,14 @@ library(ggplot2)
 library(dplyr)
 
 
-ggplot(inflation_df, aes(x = observation_date, y = CPILFESL)) +
+ggplot(inflation_df, aes(x = observation_date, y = CPILFESL / 28.5)) +
   geom_line(color = "#006aff", size = 2) +
   geom_point(size = 0.5) +
   scale_x_date(breaks = seq(from = as.Date("1957-01-01"),
                             to = as.Date("2025-06-01"),
                             by = "5 years"),
                date_labels = "%Y") +
-  labs(title = "Overtime American Price Increase ($28.50 in 1957)",
+  labs(title = "Overtime American Price Increase ($1.00 in 1957)",
        x = "Year", y = "Price ($)") +
   theme_bw()
 
@@ -301,13 +280,13 @@ ggplot(filter(unemrate_df, row_number() != 1), aes(x = `Labor Force Statistics f
        x = "Year", y = "Percent (%)") +
   theme_bw()
 
-ggplot(filter(unempop_df, row_number() != 1), aes(x = `Labor Force Statistics from the Current Population Survey` , y = ...2)) +
+ggplot(filter(unempop_df, row_number() != 1), aes(x = `Labor Force Statistics from the Current Population Survey` , y = ...2 / 1000)) +
   geom_line(color = "#ba040d", size = 1) +
   scale_x_continuous(breaks = seq(1948, 2025, by = 10)) +
-  scale_y_continuous(breaks = seq(0, 20000, by = 3000)) +
+  scale_y_continuous(breaks = seq(0, 20, by = 3)) +
   geom_point(size = 1) +
   labs(title = "( American Unemployed Population )",
-       x = "Year", y = "Amount") +
+       x = "Year", y = "Amount (Millions)") +
   theme_bw()
 
 
@@ -404,5 +383,26 @@ ggplot(amergdppercap_df, aes(x = Year, y = GDP)) +
   labs(title = "( American GDP Per Capita )",
        x = "Year", y = "Amount ($)") +
   theme_bw()
+
+```
+
+```{r plotting-tuition-price}
+
+
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+
+tuition_df <- read.csv("datafiles/tuition.csv")
+
+ggplot(tuition_df, aes(x = Year, y = Estimated_Tuition)) +
+  geom_line( color = "#8e02d4", size = 1) +
+  scale_x_continuous(breaks = seq(1980, 2025, by = 5)) +
+  scale_y_continuous(breaks = seq(0, 14000, by = 2000)) +
+  geom_point(size = 1) +
+  labs(title = "( Average American Tuition Cost )", x = "Year", y = "Cost ($)") +
+  theme_bw()
+
+
 
 ```

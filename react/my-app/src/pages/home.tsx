@@ -31,7 +31,7 @@ const sections: Section[] = [
     bgColor: "#97ff82ff",
     img: Eco,
     desc:
-      "Economy: Insights into GDP, inflation, trade, and fiscal policy.",
+      "Economy: Insights into GDP, inflation, and employment. ",
   },
   {
     id: "inequality",
@@ -39,7 +39,7 @@ const sections: Section[] = [
     bgColor: "#cc9fffff",
     img: Ine,
     desc:
-      "Inequality: Data on wealth distribution, education, and opportunities.",
+      "Inequality: Data focused around wealth distribution.",
   },
 ];
 

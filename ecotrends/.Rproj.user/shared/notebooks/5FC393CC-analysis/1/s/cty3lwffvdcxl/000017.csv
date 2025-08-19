@@ -1,8 +1,0 @@
-"0",""
-"0","ggplot(home_df, aes(x = Year, y = Price / 1000)) +"
-"0","  geom_line(color = ""#ffe819"", size = 2) +"
-"0","  geom_point(size = 0.5) +"
-"0","  scale_y_continuous(limits = c(0, NA), breaks = seq(0, 400, by = 50)) +"
-"0","  labs(title = ""Average American Home Price (Since 1996)"","
-"0","       x = ""Year"", y = ""Price (Thousands)"") +"
-"0","  theme_bw()"

@@ -77,7 +77,7 @@ const Ineq: React.FC = () => {
             <img src={topt} alt="Home prices chart" />
             <div className={`expand-content ${expanded.ten ? "show" : ""}`}>
               <p>
-                The wealthiest ten percent of Americans follow a similar path to wealthiest 1%. The top 10 percent possed 35% of the nation's capital in 1960, fell to 30% by 1980, and now posseses 47%, nearly half of America's wealth today. While members of the top ten don't possess all of the advantages of 1%, lack of concern over rent/housing, tuition, employment, and loans grants this group a large advantage over the typical American.
+                The wealthiest ten percent of Americans follow a similar path to wealthiest 1%. The top 10 percent possed 35% of the nation's capital in 1960, fell to 30% by 1980, and now posseses 47%, nearly half of America's wealth today. While members of the top ten don't possess all of the advantages of the 1%, lack of concern over rent/housing, tuition, employment, and loans grants this group a large advantage over the typical American.
               </p>
             </div>
           </div>
@@ -96,7 +96,7 @@ const Ineq: React.FC = () => {
             <img src={both} alt="Home prices chart" />
             <div className={`expand-content ${expanded.bot ? "show" : ""}`}>
               <p>
-                The least wealthy half of American's face an opposite trend than the top. After possessing 18% of American wealth in 1960, and 21% in 1974, the group now only possesses 13% of the nations wealth. With price increases of rent, tuition, and groceries outpacing wage growth, many American's find theirselves in an increasingly dire financial situation. 
+                The least wealthy half of American's face the opposite trend of the top. After possessing 18% of American wealth in 1960, and 21% in 1974, the group now only possesses 13% of the nations wealth. With price increases of rent, tuition, and groceries outpacing wage growth, many American's find theirselves in an increasingly dire financial situation. 
               </p>
             </div>
           </div>
