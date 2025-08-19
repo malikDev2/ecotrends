@@ -1,0 +1,2 @@
+"0","inflationrate_df <- inflationrate_df%>%"
+"0","  mutate(observation_date = substr(observation_date, 1, nchar(observation_date) - 6))"

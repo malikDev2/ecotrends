@@ -1,0 +1,8 @@
+"0",""
+"0","ggplot(amergdppercap_df, aes(x = Year, y = GDP)) +"
+"0","  geom_line(color = ""#3263a8"", size = 1) +"
+"0","  geom_point(size = 1) +"
+"0","  labs(title = ""( American GDP Per Capita )"","
+"0","       x = ""Year"", y = ""Amount ($)"") +"
+"0","  theme_bw()"
+"0",""

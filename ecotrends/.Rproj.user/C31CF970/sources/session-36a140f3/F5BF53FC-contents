@@ -1,0 +1,406 @@
+---
+title: "analysis.Rmd"
+output: html_document
+date: "2025-07-23"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r import tables}
+
+library(DBI)
+library(RSQLite)
+library(readxl)
+
+con <- dbConnect(RSQLite::SQLite(), "econ_data.db")
+
+
+gdpgrowth_df <- read.csv("datafiles/gdpgrowth.csv", skip = 4)
+dbWriteTable(con, "gdp growth", gdpgrowth_df, overwrite = TRUE)
+
+gdpgrowthrate_df <- read.csv("datafiles/gdpgrowthrate.csv", skip = 4)
+dbWriteTable(con, "gdp growth rate", gdpgrowthrate_df, overwrite = TRUE)
+
+gdppercapita_df <- read.csv("datafiles/gdppercapita.csv", skip = 4)
+dbWriteTable(con, "gdp per capita", gdppercapita_df, overwrite = TRUE)
+
+homeprices_df <- read.csv("datafiles/homeprices.csv")
+dbWriteTable(con, "home prices", homeprices_df, overwrite = TRUE)
+
+inflationrate_df <- read.csv("datafiles/inflarate.csv")
+dbWriteTable(con, "inflation rate", inflationrate_df, overwrite = TRUE)
+
+inflation_df <- read.csv("datafiles/inflation.csv")
+dbWriteTable(con, "inflation", inflation_df, overwrite = TRUE)
+
+unemployedpopulation_df <- read_excel("datafiles/unemppop.xlsx", sheet = 1)
+dbWriteTable(con, "unemployed", unemployedpopulation_df, overwrite = TRUE)
+
+unemploymentrate_df <- read_excel("datafiles/uneprate.xlsx", sheet = 1)
+dbWriteTable(con, "unemployment rate", unemploymentrate_df, overwrite = TRUE)
+
+workingpopulation_df <- read_excel("datafiles/workpop.xlsx", sheet = 1)
+dbWriteTable(con, "working population", workingpopulation_df, overwrite = TRUE)
+
+wealth_df <- read.csv("datafiles/wealthineq.csv")
+dbWriteTable(con, "wealth", wealth_df, overwrite = TRUE)
+
+
+
+```
+
+```{r list-tables}
+dbListTables(con)
+
+```
+
+```{r list-fields}
+
+dbListFields(con, "gdp growth")
+dbListFields(con, "gdp per capita")
+dbListFields(con, "gdp growth rate")
+dbListFields(con, "home prices")
+dbListFields(con, "inflation")
+dbListFields(con, "inflation rate")
+dbListFields(con, "unemployed")
+dbListFields(con, "unemployment rate")
+dbListFields(con, "working population")
+dbListFields(con, "wealth")
+
+
+```
+```{r peek-data}
+
+dbGetQuery(con, "SELECT * from \"gdp growth\" LIMIT 10")
+dbGetQuery(con, "SELECT * from \"gdp per capita\" LIMIT 10")
+dbGetQuery(con, "SELECT * from \"gdp growth rate\" LIMIT 10")
+
+```
+```{r retrieve-american-data}
+
+dbGetQuery(con, "SELECT * from \"gdp growth\" WHERE \"Country.Name\" = 'United States'")
+dbGetQuery(con, "SELECT * from \"gdp per capita\" WHERE \"Country.Name\" = 'United States'")
+dbGetQuery(con, "SELECT * from \"gdp growth rate\" WHERE \"Country.Name\" = 'United States'")
+
+```
+
+```{r query-wealth-inequality data}
+
+dbGetQuery(con, "SELECT * from wealth WHERE Year == 1962")
+# top 1% = 12.8%, top 10% = 36.2%, bottom 50% = 19.3% 
+dbGetQuery(con, "SELECT * from wealth WHERE Year == 2023")
+# top 1% = 20.73%, top 10% = 46.76%, bottom 50% = 13.44%
+dbGetQuery(con, "SELECT * from wealth WHERE Share = 
+(SELECT MIN(Share) FROM wealth)
+AND Percentile == 'p99p100'")
+# Min top 1% = 10.3% in 1978
+dbGetQuery(con, "
+  SELECT * 
+  FROM wealth 
+  WHERE Percentile = 'p99p100'
+  AND Share = (SELECT MAX(Share) FROM wealth WHERE Percentile = 'p99p100')
+")
+# Max top 1% = 20.7% in 2022-2023
+dbGetQuery(con, "
+  SELECT * 
+  FROM wealth 
+  WHERE Percentile = 'p90p100'
+  AND Share = (SELECT MIN(Share) FROM wealth WHERE Percentile = 'p90p100')
+")
+# Min top 10% = 33.6% in 1970
+dbGetQuery(con, "
+  SELECT * 
+  FROM wealth 
+  WHERE Percentile = 'p90p100'
+  AND Share = (SELECT MAX(Share) FROM wealth WHERE Percentile = 'p90p100')
+")
+# Max top 10% = 46.9% in 2022
+dbGetQuery(con, "
+  SELECT * 
+  FROM wealth 
+  WHERE Percentile = 'p0p50'
+  AND Share = (SELECT MIN(Share) FROM wealth WHERE Percentile = 'p0p50')
+")
+# Min Bottom 50% = 12.95% in 2016
+dbGetQuery(con, "
+  SELECT * 
+  FROM wealth 
+  WHERE Percentile = 'p0p50'
+  AND Share = (SELECT MAX(Share) FROM wealth WHERE Percentile = 'p0p50')
+")
+# Max Bottom 50% = 21.24% in 2016
+```
+
+```{r create-new-dataframes}
+
+topone_df <- dbGetQuery(con, "
+  SELECT * 
+  FROM wealth 
+  WHERE Percentile = 'p99p100'")
+
+topten_df <- dbGetQuery(con, "
+  SELECT * 
+  FROM wealth 
+  WHERE Percentile = 'p90p100'")
+
+bothalf_df <- dbGetQuery(con, "
+  SELECT * 
+  FROM wealth 
+  WHERE Percentile = 'p0p50'")
+
+amergdpgrowth_df <- dbGetQuery(con, "
+  SELECT * 
+  FROM \"gdp growth\"
+  WHERE `Country.Name` = 'United States'")
+
+amergdpgrowthrate_df <- dbGetQuery(con, "
+  SELECT * 
+  FROM \"gdp growth rate\"
+  WHERE `Country.Name` = 'United States'")
+
+amergdppercap_df <- dbGetQuery(con, "
+  SELECT * 
+  FROM \"gdp per capita\"
+  WHERE `Country.Name` = 'United States'")
+
+home_df <- dbGetQuery(con, "SELECT * FROM \"home prices\" WHERE RegionName = 'United States'")
+
+```
+
+```{r inflation-rate-df}
+inflationrate_df <- read.csv("datafiles/inflarate.csv")
+inflationrate_df$observation_date <- as.integer(inflationrate_df$observation_date)
+```
+
+```{r visualize-wealthgap-data}
+
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+
+
+ggplot(topone_df, aes(x = Year, y = Share * 100)) +
+  geom_line(color = "#1eff00", size = 1) +
+  geom_point(size = 1) +
+  labs(title = "(Wealth Share of Wealthiest 1% of Americans)",
+       x = "Year", y = "Percent (%)") +
+  theme_bw()
+
+ggplot(topten_df, aes(x = Year, y = Share * 100)) +
+  geom_line(color = "#006aff", size = 1) +
+  geom_point(size = 1) +
+  labs(title = "(Wealth Share of Wealthiest 10% of Americans)",
+       x = "Year", y = "Percent (%)") +
+  theme_bw()
+
+ggplot(bothalf_df, aes(x = Year, y = Share * 100)) +
+  geom_line(color = "#ff0000", size = 1) +
+  geom_point(size = 1) +
+  labs(title = "(Wealth Share of Bottom 50% of Americans )",
+       x = "Year", y = "Percent (%)") +
+  theme_bw()
+
+
+
+ggplot(inflationrate_df, aes(x = observation_date, y = FPCPITOTLZGUSA, group=1)) +
+  geom_line(color = "#ffee00", size = 1) +
+  scale_x_continuous(breaks = seq(1960, 2025, by = 10)) +
+  geom_point(size = 1) +
+  labs(title = "( American Inflation Rate )",
+       x = "Year", y = "Percent (%)") +
+  theme_bw()
+
+```
+
+```{r modify-columns}
+inflationrate_df <- inflationrate_df%>%
+  mutate(observation_date = substr(observation_date, 1, nchar(observation_date) - 6))
+```
+
+```{r creating-dataframes}
+workpop_df <- workingpopulation_df %>%
+  slice(11:n())
+
+unempop_df <- unemployedpopulation_df %>%
+  slice(11:n())
+
+unemrate_df <- unemploymentrate_df %>%
+  slice(11:n())
+
+```
+
+```{r transforming-data}
+
+if (is.factor(inflation_df$observation_date)) {
+  inflation_df$observation_date <- as.character(inflation_df$observation_date)
+}
+inflation_df$observation_date <- as.Date(paste0(inflation_df$observation_date, "-01"), format = "%Y-%m-%d")
+
+unemrate_df$...2 <- as.numeric(unemrate_df$...2)
+unemrate_df$`Labor Force Statistics from the Current Population Survey` <- as.numeric(unemrate_df$`Labor Force Statistics from the Current Population Survey`)
+
+unempop_df$...2 <- as.numeric(unempop_df$...2)
+unempop_df$`Labor Force Statistics from the Current Population Survey` <- as.numeric(unempop_df$`Labor Force Statistics from the Current Population Survey`)
+
+workpop_df$...2 <- as.numeric(workpop_df$...2)
+workpop_df$`Labor Force Statistics from the Current Population Survey` <- as.numeric(workpop_df$`Labor Force Statistics from the Current Population Survey`)
+
+
+
+```
+
+```{r visualize-more-data}
+
+library(lubridate)
+library(ggplot2)
+library(dplyr)
+
+
+ggplot(inflation_df, aes(x = observation_date, y = CPILFESL / 28.5)) +
+  geom_line(color = "#006aff", size = 2) +
+  geom_point(size = 0.5) +
+  scale_x_date(breaks = seq(from = as.Date("1957-01-01"),
+                            to = as.Date("2025-06-01"),
+                            by = "5 years"),
+               date_labels = "%Y") +
+  labs(title = "Overtime American Price Increase ($1.00 in 1957)",
+       x = "Year", y = "Price ($)") +
+  theme_bw()
+
+ggplot(filter(unemrate_df, row_number() != 1), aes(x = `Labor Force Statistics from the Current Population Survey` , y = ...2)) +
+  geom_line(color = "#ff2b36", size = 1) +
+  scale_x_continuous(breaks = seq(1948, 2025, by = 10)) +
+  scale_y_continuous(breaks = seq(0, 12, by = 1)) +
+  geom_point(size = 1) +
+  labs(title = "( American Unemployment Rate )",
+       x = "Year", y = "Percent (%)") +
+  theme_bw()
+
+ggplot(filter(unempop_df, row_number() != 1), aes(x = `Labor Force Statistics from the Current Population Survey` , y = ...2 / 1000)) +
+  geom_line(color = "#ba040d", size = 1) +
+  scale_x_continuous(breaks = seq(1948, 2025, by = 10)) +
+  scale_y_continuous(breaks = seq(0, 20, by = 3)) +
+  geom_point(size = 1) +
+  labs(title = "( American Unemployed Population )",
+       x = "Year", y = "Amount (Millions)") +
+  theme_bw()
+
+
+
+ggplot(filter(workpop_df, row_number() != 1), aes(x = `Labor Force Statistics from the Current Population Survey` , y = ...2)) +
+  geom_line(color = "#05f278", size = 1) +
+  scale_x_continuous(breaks = seq(1948, 2025, by = 10)) +
+  geom_point(size = 1) +
+  labs(title = "( American Workforce Population )",
+       x = "Year", y = "Amount") +
+  theme_bw()
+
+```
+
+```{r import-wages}
+avgwage_df <- read.csv("datafiles/avgwage.csv")
+
+ggplot(avgwage_df, aes(x = Year, y = Index, group=1)) +
+  geom_line(color = "#ff0310", size = 1) +
+  geom_point(size = 1) +
+  labs(title = "( Average American Wage )",
+       x = "Year", y = "Amount ($)") +
+  theme_bw()
+
+```
+
+```{r resize-one-row-dataframes}
+
+library(tidyr)
+library(dplyr)
+
+amergdpgrowth_df <- amergdpgrowth_df %>%
+  pivot_longer(
+    cols = starts_with("X"),
+    names_to = "Year",
+    values_to = "GDP"
+  ) %>%
+  mutate(Year = as.numeric(sub("X", "", Year)))
+amergdpgrowthrate_df <- amergdpgrowthrate_df %>%
+  pivot_longer(
+    cols = starts_with("X"),
+    names_to = "Year",
+    values_to = "GDP"
+  ) %>%
+  mutate(Year = as.numeric(sub("X", "", Year)))
+
+amergdppercap_df <- amergdppercap_df %>%
+  pivot_longer(
+    cols = starts_with("X"),
+    names_to = "Year",
+    values_to = "GDP"
+  ) %>%
+  mutate(Year = as.numeric(sub("X", "", Year)))
+
+home_df <- home_df %>%
+  pivot_longer(
+    cols = starts_with("X"),
+    names_to = "Year",
+    values_to = "Price"
+  ) %>%
+  mutate(Year = sub("X", "", Year))
+
+home_df$Year <- as.Date(home_df$Year, format = "%Y.%m.%d")
+  
+```
+
+```{r current}
+
+ggplot(home_df, aes(x = Year, y = Price / 1000)) +
+  geom_line(color = "#ffe819", size = 2) +
+  geom_point(size = 0.5) +
+  scale_y_continuous(limits = c(0, NA), breaks = seq(0, 400, by = 50)) +
+  labs(title = "Average American Home Price (Since 1996)",
+       x = "Year", y = "Price (Thousands)") +
+  theme_bw()
+
+ggplot(amergdpgrowth_df, aes(x = Year, y = GDP /1000000000000)) +
+  geom_line(color = "#eb1df2", size = 1) +
+  geom_point(size = 1) +
+  labs(title = "( American GDP )",
+       x = "Year", y = "GDP $ (Trillions)") +
+  theme_bw()
+
+ggplot(amergdpgrowthrate_df, aes(x = Year, y = GDP)) +
+  geom_line(color = "#03ff20", size = 1) +
+  geom_point(size = 1) +
+  labs(title = "( American GDP Growth Rate )",
+       x = "Year", y = "Percentage (%)") +
+  theme_bw()
+
+ggplot(amergdppercap_df, aes(x = Year, y = GDP)) +
+  geom_line(color = "#3263a8", size = 1) +
+  geom_point(size = 1) +
+  labs(title = "( American GDP Per Capita )",
+       x = "Year", y = "Amount ($)") +
+  theme_bw()
+
+```
+
+```{r plotting-tuition-price}
+
+
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+
+tuition_df <- read.csv("datafiles/tuition.csv")
+
+ggplot(tuition_df, aes(x = Year, y = Estimated_Tuition)) +
+  geom_line( color = "#8e02d4", size = 1) +
+  scale_x_continuous(breaks = seq(1980, 2025, by = 5)) +
+  scale_y_continuous(breaks = seq(0, 14000, by = 2000)) +
+  geom_point(size = 1) +
+  labs(title = "( Average American Tuition Cost )", x = "Year", y = "Cost ($)") +
+  theme_bw()
+
+
+
+```
